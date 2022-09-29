@@ -5,10 +5,14 @@ import os
 import watchdog.observers
 import watchdog.events
 
-from beatmap_reader import BeatmapIO
-from replay_reader import ReplayIO
+try:
+    from beatmap_reader import BeatmapIO
+    from replay_reader import ReplayIO
+except ModuleNotFoundError:
+    from osu_analysis.beatmap_reader import BeatmapIO
+    from osu_analysis.replay_reader import ReplayIO
 
-from code.db_mgr import MapsDB
+from .db_mgr import MapsDB
 
 
 def get_traceback(e, msg):

@@ -3,7 +3,7 @@ import logging
 import threading
 import os
 
-from code.osu_db_reader import OsuDbReader
+from .osu_db_reader import OsuDbReader
 
 
 # For resolving replays to maps
