@@ -73,7 +73,7 @@ class OsuRecorder(watchdog.observers.Observer):
 
         class EventHandler(watchdog.events.FileSystemEventHandler):
             __logger = self._OsuRecorder__logger
-            __reply_handler = self._OsuRecorder__handle_new_replay
+            __reply_handler = self.handle_new_replay
 
             def on_created(self, event): 
                 if '.osr' not in event.src_path:
@@ -89,7 +89,7 @@ class OsuRecorder(watchdog.observers.Observer):
         watchdog.observers.Observer.start(self)
 
 
-    def __handle_new_replay(self, replay_file_name):
+    def handle_new_replay(self, replay_file_name):
         self.__logger.debug(f'Processing replay: {replay_file_name}')
 
         # Needed sleep to wait for osu! to finish writing the replay file
