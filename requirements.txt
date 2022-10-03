@@ -2,5 +2,5 @@ numpy
 pandas
 scipy
 watchdog
-sqlite3
 git+https://github.com/abraker-osu/osu_analysis.git#egg=osu_analysis
+git+https://github.com/abraker-osu/osu_db.git#egg=osu_db

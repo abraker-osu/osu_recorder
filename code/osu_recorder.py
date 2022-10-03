@@ -12,7 +12,7 @@ except ModuleNotFoundError:
     from osu_analysis.beatmap_reader import BeatmapIO
     from osu_analysis.replay_reader import ReplayIO
 
-from .db_mgr import MapsDB
+from osu_db import MapsDB
 
 
 def get_traceback(e, msg):
