@@ -30,7 +30,7 @@ def get_traceback(e, msg):
 
 class OsuRecorder(watchdog.observers.Observer):
 
-    def __init__(self, osu_path):
+    def __init__(self, osu_path, callback=None):
         watchdog.observers.Observer.__init__(self)
 
         self.__stream_handler = logging.StreamHandler()
@@ -48,7 +48,7 @@ class OsuRecorder(watchdog.observers.Observer):
             raise FileNotFoundError(f'"{self.__replay_path}" does not exist!')
 
         self.__maps_db  = MapsDB(osu_path)
-        self.__callback = None
+        self.__callback = callback
         self.__monitor  = None
 
 
@@ -90,6 +90,9 @@ class OsuRecorder(watchdog.observers.Observer):
 
 
     def handle_new_replay(self, replay_file_name):
+        if isinstance(self.__callback, type(None)):
+            raise TypeError('self.__callback is None')
+        
         self.__logger.debug(f'Processing replay: {replay_file_name}')
 
         # Needed sleep to wait for osu! to finish writing the replay file
