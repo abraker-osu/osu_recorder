@@ -95,7 +95,10 @@ class OsuRecorder:
         self.__maps_db  = MapsDB(osu_path)
         self.__callback = callback
         self.__monitor  = None
-        self.__event_handler = EventHandler(self.__callback, self.__maps_db)
+        self.__event_handler = None
+
+        if self.__callback is not None:
+            self.__event_handler = EventHandler(self.__callback, self.__maps_db)
 
 
     def __del__(self):
@@ -129,4 +132,7 @@ class OsuRecorder:
 
 
     def handle_new_replay(self, replay_file_name: str):
+        if self.__event_handler is None:
+            return
+
         self.__event_handler.handle_new_replay(replay_file_name)
