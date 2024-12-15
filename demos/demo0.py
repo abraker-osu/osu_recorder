@@ -22,7 +22,7 @@ def cs_to_px(cs: float) -> float:
     return (108.8 - 8.96*cs)
 
 
-def play_handler(beatmap: BeatMap, replay):
+def play_handler(beatmap: BeatMap, replay: Replay):
     print(beatmap, replay)
 
     replay_data = StdReplayData.get_replay_data(replay)

@@ -3,6 +3,7 @@ Used to correct pip installing editable directories
 bearing dashes instead of underscores
 """
 import os
+import sys
 import shutil
 
 
@@ -18,6 +19,9 @@ if 'VIRTUAL_ENV' not in os.environ:
 
 
 path = f'{os.environ["VIRTUAL_ENV"]}\\src'
+if not os.path.exists(path):
+    sys.exit(0)
+
 for subdir in os.listdir(path):
     old_path = f'{path}\\{subdir}'
 
