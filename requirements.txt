@@ -1,6 +1,5 @@
-numpy
-pandas
-scipy
-watchdog
-git+https://github.com/abraker-osu/osu_analysis.git#egg=osu_analysis
-git+https://github.com/abraker-osu/osu_db.git#egg=osu_db
+-e git+https://github.com/abraker-osu/osu_interfaces.git@main#egg=osu_interfaces
+-e git+https://github.com/abraker-osu/osu_beatmap_reader.git@master#egg=beatmap_reader
+-e git+https://github.com/abraker-osu/osu_replay_reader.git@master#egg=replay_reader
+-e git+https://github.com/abraker-osu/osu_analysis.git#egg=osu_analysis
+-e git+https://github.com/abraker-osu/osu_db.git@refactor#egg=osu_db

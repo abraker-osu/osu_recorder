@@ -1,3 +1,4 @@
+import typing
 import logging
 import time
 import os
@@ -5,17 +6,13 @@ import os
 import watchdog.observers
 import watchdog.events
 
-try:
-    from beatmap_reader import BeatmapIO
-    from replay_reader import ReplayIO
-except ModuleNotFoundError:
-    from osu_analysis.beatmap_reader import BeatmapIO
-    from osu_analysis.replay_reader import ReplayIO
-
+from beatmap_reader import BeatmapIO, Beatmap
+from replay_reader import ReplayIO, Replay
 from osu_db import MapsDB
 
 
-def get_traceback(e, msg):
+
+def get_traceback(e: Exception, msg: str):
     traceback_str = ''
     traceback_str += f'{msg}: {type(e).__name__} due to "{e}"\n'
 
@@ -61,7 +58,7 @@ class OsuRecorder(watchdog.observers.Observer):
         self.__monitor = None
 
 
-    def start(self, callback):
+    def start(self, callback: typing.Callable[[Beatmap, Replay], None]):
         if self.__monitor is not None:
             self.__logger.info(f'Attempted to start replay monitoring when already started')
             return
@@ -75,7 +72,7 @@ class OsuRecorder(watchdog.observers.Observer):
             __logger = self._OsuRecorder__logger
             __reply_handler = self._OsuRecorder__handle_new_replay
 
-            def on_created(self, event): 
+            def on_created(self, event):
                 if '.osr' not in event.src_path:
                     return
 
@@ -89,7 +86,7 @@ class OsuRecorder(watchdog.observers.Observer):
         watchdog.observers.Observer.start(self)
 
 
-    def __handle_new_replay(self, replay_file_name):
+    def __handle_new_replay(self, replay_file_name: str):
         self.__logger.debug(f'Processing replay: {replay_file_name}')
 
         # Needed sleep to wait for osu! to finish writing the replay file
@@ -105,7 +102,7 @@ class OsuRecorder(watchdog.observers.Observer):
         map_file_name = self.__maps_db.get_map_file_name(replay.beatmap_hash)
         if map_file_name is None:
             self.__logger.info(f'file_name is None. Unable to open map for replay with beatmap hash {replay.beatmap_hash}')
-            
+
             self.__callback(None,  replay)
             return
 
