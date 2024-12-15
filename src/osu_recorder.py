@@ -6,7 +6,7 @@ import os
 import watchdog.observers
 import watchdog.events
 
-from beatmap_reader import BeatmapIO, Beatmap
+from beatmap_reader import BeatmapIO, BeatmapBase
 from replay_reader import ReplayIO, Replay
 from osu_db import MapsDB
 
@@ -58,7 +58,7 @@ class OsuRecorder(watchdog.observers.Observer):
         self.__monitor = None
 
 
-    def start(self, callback: typing.Callable[[Beatmap, Replay], None]):
+    def start(self, callback: typing.Callable[[BeatmapBase, Replay], None]):
         if self.__monitor is not None:
             self.__logger.info(f'Attempted to start replay monitoring when already started')
             return
