@@ -1,1 +1,1 @@
-from .code import *
+from .src import OsuRecorder

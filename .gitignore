@@ -1,2 +1,6 @@
 *.pyc
 /venv/*
+/build/*
+/osu_recorder.egg-info/*
+/.vscode/settings.json
+/data/*
